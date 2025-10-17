@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jamal Basha Shaik - Software Engineer Portfolio</title>
+    <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for professional aesthetic */
+        body {
+            font-family: 'Inter', serif;
+            background-color: #0f172a; /* Dark Navy Blue */
+            color: #c9d1d9; /* Light text */
+        }
+        /* Boysenberry accent color (Hex: #A3234E) */
+        .text-accent {
+            color: #A3234E;
+        }
+        .btn-primary {
+            background-color: #A3234E; /* Boysenberry 500 */
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #821C3E; /* Darker Boysenberry 600 */
+        }
+        a:hover{
+            color: #C06D8A; /* Lighter Boysenberry 300 on hover */
+        }
+        /* Utility classes for direct Tailwind overrides */
+        .border-boysenberry {
+            border-color: #A3234E;
+        }
+        .shadow-boysenberry-500\/50 {
+            box-shadow: 0 10px 15px -3px rgba(163, 35, 78, 0.5), 0 4px 6px -2px rgba(163, 35, 78, 0.05);
+        }
+        .focus-ring-boysenberry:focus {
+            --tw-ring-color: #A3234E;
+            border-color: #A3234E;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    // Define dark theme colors
+                    'background-dark': '#0f172a', /* Dark Navy Blue */
+                    'card-dark': '#1e293b',      // Slate 800 - Card background color
+                    // Boysenberry accent definitions (Using standard Tailwind classes for script compatibility)
+                }
+            }
+        }
+
+        // --- MOCK DATA BASED ON JAMAL BASHA SHAIK'S RESUME ---
+        window.onload = function() {
+            const mockData = {
+                // USER DETAILS
+                full_name: "Jamal Basha Shaik",
+                job_title: "Software developer & tester", 
+                // Using the PROFILE section from the resume
+                bio: "I'm Jamal basha shaik, a dedicated Software Developer & tester at Tokala Technology Pvt. Ltd. I'm passionate about creating efficient, user-centered web applications and delivering high-quality software solutions. My work focuses on transforming ideas into functional products using modern technologies. At Tokala Technology Pvt Ltd. I collaborate with a talented team to design, develop, and maintain innovative software that meets client needs while ensuring performance and scalability. I believe in continuous learning, teamwork, and writing clean, maintainable code that makes a real impact.",
+                
+                // CONTACT DETAILS
+                email: "skaahil8008@gmail.com", 
+                company_email: "aahiltokalatech@gmail.com", 
+                // Removed phone_number
+                // Placeholder for social media since none was explicitly provided
+                linkedin_link: "https://www.linkedin.com/in/jamalbasha", // Placeholder: Please update this link
+                
+                // PROJECTS DATA
+                projects: [
+                    { 
+                        title: "DLINK Router Enhancements", 
+                        description: "Provided sustenance and feature enhancement for DLINK Router. Focused on developing new high-performance, multilayer-switching solutions for enterprise and service provider networks, ensuring gigabit scalability and high availability.", 
+                        link: "#project-dlink", 
+                        tags: ["C", "Linux", "VRRP", "DHCP", "L2/L3 Networking", "Sustenance", "Unit Testing"] 
+                    },
+                    { 
+                        title: "Juniper Router (J-Web Management)", 
+                        description: "Worked on networking gear for Juniper, focusing on the J-Web device management application (Web-based GUI for J-series, M-series, and T-series platforms). Contributions included debugging, bug fixing in live scenarios, code review, and unit testing.", 
+                        link: "#project-juniper", 
+                        tags: ["C", "Linux", "DHCP", "J-Web", "Debugging", "Code Review", "Unit Testing"] 
+                    },
+                ],
+                // EDUCATION DATA 
+                education_history: [
+                    { 
+                        degree: "BCA in Computer Applications", 
+                        institution: "NOVA Academy of Rural Education and Research", 
+                        years: "Jul 2017 - Sep 2020", 
+                        details: "Computer Applications | Nilgiris, Tamil Nadu" 
+                    },
+                     { 
+                        degree: "PUC in Computer Science", 
+                        institution: "KSCHE, Karnataka", 
+                        years: "May 2017", 
+                        details: "Computer Science" 
+                    },
+                ],
+                // SKILLS DATA 
+                skills: [
+                    { name: "C Programming", emoji: "⚙️" },
+                    { name: "L2/L3 Networking", emoji: "🌐" },
+                    { name: "VRRP Protocol", emoji: "🔗" },
+                    { name: "DHCP Protocol", emoji: "📡" },
+                    { name: "VLAN Protocol", emoji: "🏷️" },
+                    { name: "Linux OS", emoji: "🐧" },
+                    { name: "Socket Programming", emoji: "🔌" },
+                    { name: "Threads & IPC", emoji: "🧵" },
+                    { name: "GDB & CVS", emoji: "🛠️" },
+                    { name: "SDLC", emoji: "📈" },
+                ]
+            };
+
+            // Dynamically populate fields
+            document.querySelectorAll('[data-bind]').forEach(el => {
+                const key = el.getAttribute('data-bind');
+                const value = mockData[key];
+                if (value) {
+                    el.textContent = value;
+                    if (key.includes('email')) {
+                         el.setAttribute('href', `mailto:${value}`);
+                    }
+                    // Removed phone binding logic
+                }
+            });
+            
+            // Set link destinations
+            document.getElementById('linkedin-link').href = mockData.linkedin_link;
+            
+            // Dynamically render projects
+            const projectsContainer = document.getElementById('projects-grid');
+            projectsContainer.innerHTML = ''; 
+            mockData.projects.forEach(project => {
+                const projectCard = document.createElement('div');
+                // Updated hover shadow and border to use Boysenberry
+                projectCard.className = 'bg-card-dark p-6 rounded-xl shadow-2xl hover:shadow-boysenberry-500/50 transition-all duration-300 transform hover:-translate-y-1 border border-transparent hover:border-boysenberry';
+                
+                // Tags HTML: Updated border color to Boysenberry
+                const tagsHtml = project.tags.map(tag => `<span class="text-xs font-medium px-2 py-0.5 rounded-full bg-background-dark text-accent border border-[#A3234E]/30">${tag}</span>`).join('');
+                
+                projectCard.innerHTML = `
+                    <h3 class="text-xl font-bold mb-3 text-white">${project.title}</h3>
+                    <p class="text-gray-400 mb-4">${project.description}</p>
+                    <div class="flex flex-wrap gap-2 mb-4">${tagsHtml}</div>
+                `;
+                projectsContainer.appendChild(projectCard);
+            });
+
+            // Dynamically render education history (Updated for Timeline Style)
+            const educationContainer = document.getElementById('education-history');
+            educationContainer.innerHTML = ''; 
+            mockData.education_history.forEach((item, index) => {
+                const educationItem = document.createElement('div');
+                // Use pt-2 for spacing between items, pt-0 for the first item. pb-6 for bottom margin.
+                educationItem.className = `pb-6 ${index > 0 ? 'pt-2' : 'pt-0'} relative`; 
+                
+                educationItem.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div class="flex flex-col pr-4">
+                            <h3 class="text-xl font-bold text-white mb-1">${item.degree}</h3>
+                            <p class="text-md text-gray-300">${item.institution}</p>
+                            <p class="text-sm text-gray-500 mt-1">
+                                ${item.details}
+                            </p>
+                        </div>
+                        <!-- Dates on the far right of the content area -->
+                        <span class="text-sm text-gray-400 font-medium whitespace-nowrap text-right pt-1">
+                            ${item.years}
+                        </span>
+                    </div>
+                `;
+                educationContainer.appendChild(educationItem);
+            });
+
+            // Dynamically render skills
+            const skillsContainer = document.getElementById('skills-grid');
+            skillsContainer.innerHTML = '';
+            mockData.skills.forEach(skill => {
+                const skillCard = document.createElement('div');
+                // Updated hover border to Boysenberry
+                skillCard.className = 'p-4 bg-card-dark rounded-xl shadow-lg border border-gray-700 hover:border-boysenberry transition duration-300 transform hover:scale-105';
+                skillCard.innerHTML = `
+                    <span class="text-4xl block mb-2" role="img" aria-label="${skill.name}">${skill.emoji}</span>
+                    <p class="font-medium text-white">${skill.name}</p>
+                `;
+                skillsContainer.appendChild(skillCard);
+            });
+        };
+    </script>
+</head>
+<body>
+    <!-- Navigation Bar --><header class="sticky top-0 z-50 bg-background-dark/95 backdrop-blur-sm shadow-md">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <div class="text-2xl font-extrabold text-accent">
+                Jamal Basha
+            </div>
+            <!-- Desktop Nav Links - Updated Order --><div class="hidden md:flex space-x-6 text-gray-300">
+                <a href="#home" class="hover:text-accent transition duration-150">Home</a>
+                <a href="#about" class="hover:text-accent transition duration-150">Profile</a>
+                <a href="#education" class="hover:text-accent transition duration-150">Education</a>
+                <a href="#projects" class="hover:text-accent transition duration-150">Projects</a>
+                <a href="#skills" class="hover:text-accent transition duration-150">Skills</a>
+                <a href="#contact" class="hover:text-accent transition duration-150">Contact</a>
+                </div>
+            </nav>
+    </header>
+
+    <!-- Main Content Area --><main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <!-- 1. Hero Section --><section id="home" class="min-h-[70vh] flex items-center justify-center text-center">
+            <div class="max-w-4xl space-y-6">
+                <p class="text-xl text-accent font-medium uppercase tracking-widest">
+                    Hello, I'm
+                </p>
+                <h1 class="text-6xl sm:text-7xl lg:text-8xl font-black text-white leading-tight whitespace-nowrap">
+                    <span data-bind="full_name">Jamal Basha Shaik</span>
+                </h1>
+                <h2 class="text-2xl sm:text-3xl font-light text-gray-400">
+                    <span class="font-bold text-accent" data-bind="job_title">Software developer & tester</span>
+                </h2>
+                <div class="pt-8 flex justify-center space-x-4">
+                    <!-- Button shadow changed to boysenberry -->
+                    <a href="#contact" class="btn-primary text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-boysenberry-500/40 transition duration-300 transform hover:scale-105">
+                        Get In Touch
+                    </a>
+                   <!-- UPDATED: Button text and link changed to View Projects -->
+                   <a href="#projects" class="bg-card-dark border border-gray-700 text-gray-300 font-bold py-3 px-8 rounded-full hover:bg-gray-800 transition duration-300 transform hover:scale-105">
+                        View Projects
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Divider -->
+        <div class="my-16 border-t border-gray-700"></div>
+
+        <!-- 2. About/Profile Section --><section id="about" class="py-16 grid grid-cols-1 md:grid-cols-3 gap-10 items-center">
+            <div class="md:col-span-1 flex justify-center">
+                <!-- Profile Photo Placeholder (Initials 'JBS') - Border changed to a darker boysenberry -->
+                <img src="jamal profile.jpg" alt="Jamal Basha Profile Photo" class="w-64 h-64 object-cover rounded-full shadow-2xl border-4 border-boysenberry">
+            </div>
+            <div class="md:col-span-2">
+                <h2 class="text-4xl font-extrabold text-white mb-6">
+                    Professional <span class="text-accent">Profile</span>
+                </h2>
+                <p class="text-lg text-gray-400 leading-relaxed mb-4" data-bind="bio">
+                    I'm jamal Basha, a dedicated Software Developer at Tokala Technology Pvt. Ltd.
+I'm passionate about creating efficient, user-centered web applications and delivering high-quality software solutions. My work focuses on transforming ideas into functional products using modern technologies.
+At Tokala Technology Pvt Ltd.I collaborate with a talented team to design, develop, and maintain innovative software that meets client needs while ensuring performance and scalability. I believe in continuous learning, teamwork, and writing clean, maintainable code that makes a real impact.
+                </p>
+                
+                <!-- Quick Skills -->
+                <div class="flex flex-wrap gap-4 mt-8">
+                    <span class="bg-card-dark text-white text-sm font-semibold py-2 px-4 rounded-full border border-gray-700">C Programming</span>
+                    <span class="bg-card-dark text-white text-sm font-semibold py-2 px-4 rounded-full border border-gray-700">Linux OS</span>
+                    <span class="bg-card-dark text-white text-sm font-semibold py-2 px-4 rounded-full border border-gray-700">VRRP/DHCP/VLAN</span>
+                    <span class="bg-card-dark text-white text-sm font-semibold py-2 px-4 rounded-full border border-gray-700">Socket Programming</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="my-16 border-t border-gray-700"></div>
+
+        <!-- 3. Education Section (Timeline Redesign) --><section id="education" class="py-16">
+            <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 items-start">
+                <!-- Left Column: Large Profile Image/Placeholder -->
+                <div class="md:col-span-1 flex justify-center md:justify-start">
+                    <!-- Education Profile Picture -->
+                    <img src="jamal edu.jpeg" 
+                         alt="Education Profile Photo" 
+                         class="w-40 h-40 md:w-64 md:h-64 object-cover rounded-full shadow-2xl border-4 border-[#821C3E] bg-card-dark">
+                </div>
+
+                <!-- Right Column: Timeline Content -->
+                <div class="md:col-span-3">
+                    <h2 class="text-4xl font-extrabold text-white mb-8 text-left">
+                        My <span class="text-accent">Academic History</span>
+                    </h2>
+                    <!-- Timeline Container: Border line changed to boysenberry -->
+                    <div class="space-y-8 pl-4 border-l-2 border-boysenberry" id="education-history">
+                        <!-- Education history generated here by the script -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="my-16 border-t border-gray-700"></div>
+
+        <!-- 4. Projects Section (Now section 4) --><section id="projects" class="py-16">
+            <h2 class="text-4xl font-extrabold text-white mb-10 text-center">
+                Networking <span class="text-accent">Projects</span>
+            </h2>
+            
+            <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <!-- Project cards will be generated here by the script -->
+            </div>
+            <div class="text-center mt-12">
+                <a href="#contact" class="bg-gray-700 text-white font-bold py-3 px-8 rounded-full hover:bg-gray-600 transition duration-300">
+                    Discuss project
+                </a>
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="my-16 border-t border-gray-700"></div>
+
+        <!-- 5. Skills & Tech Stack Section (Now section 5) --><section id="skills" class="py-16">
+            <h2 class="text-4xl font-extrabold text-white mb-10 text-center">
+                Core <span class="text-accent">Technical Skills</span>
+            </h2>
+            <div class="max-w-5xl mx-auto">
+                <div id="skills-grid" class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-6 text-center">
+                    <!-- Skill cards will be generated here by the script -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="my-16 border-t border-gray-700"></div>
+
+        <!-- 6. Contact Section (Now section 6) --><section id="contact" class="py-16">
+            <h2 class="text-4xl font-extrabold text-white mb-10 text-center">
+                Contact <span class="text-accent">Me</span>
+            </h2>
+            <div class="max-w-xl mx-auto bg-card-dark p-8 rounded-xl shadow-2xl border border-gray-700">
+                <p class="text-center text-gray-400 mb-6">
+                   I am available for new opportunities in Software Engineering. Let's connect!
+                </p>
+                <div class="flex flex-col space-y-4 mb-8 text-center">
+                    <!-- Email address (company_email) is now the primary contact link -->
+                    <a href="mailto:skaahil8008@gmail.com" class="text-lg text-accent hover:underline flex items-center justify-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        <span data-bind="company_email">aahiltokalatech@gmail.com</span>
+                    </a>
+                </div>
+                <form action="#" method="POST" class="space-y-4">
+                    <!-- Form focus rings changed to boysenberry -->
+                    <input type="text" name="name" placeholder="Your Name" class="w-full bg-background-dark border border-gray-700 p-3 rounded-lg text-white placeholder-gray-500 focus-ring-boysenberry" required>
+                    <input type="email" name="email" placeholder="Your Email" class="w-full bg-background-dark border border-gray-700 p-3 rounded-lg text-white placeholder-gray-500 focus-ring-boysenberry" required>
+                    <textarea name="message" rows="5" placeholder="Your Message" class="w-full bg-background-dark border border-gray-700 p-3 rounded-lg text-white placeholder-gray-500 focus-ring-boysenberry" required></textarea>
+                    <button type="submit" class="btn-primary w-full text-white font-bold py-3 rounded-lg shadow-lg shadow-boysenberry-500/40 transition duration-300">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer --><footer class="bg-background-dark border-t border-gray-900 mt-12 py-8">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-gray-500">
+            <!-- Footer Content container to manage layout (copyright left, emails right) --><div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                <!-- Left Section (Copyright and Socials) --><div class="text-center md:text-left">
+                    <p>&copy; 2025 <span data-bind="full_name">Jamal Basha Shaik</span> </p>
+                    <div class="flex justify-center md:justify-start space-x-6 mt-4">
+                        <a id="linkedin-link" href="https://www.linkedin.com/in/jamalbasha" target="_blank" class="text-gray-400 hover:text-accent transition duration-150">LinkedIn</a>
+                        <a href="mailto:skaahil8008@gmail.com" class="text-gray-400 hover:text-accent transition duration-150">Email</a>
+                    </div>
+                </div>
+                
+                <!-- Right Section (Emails) - Positioned at the bottom right --><div class="text-center md:text-right space-y-1">
+                    <p class="text-white font-semibold">Contact Details:</p>
+                    <!-- Only email is listed in the footer contact details -->
+                    <p class="text-sm">Email: <a href="mailto:skaahil8008@gmail.com" class="text-accent hover:underline" data-bind="email">skaahil8008@gmail.com</a></p>
+                    <p class="text-sm">work: <a href="mailto:aahalitokalatech@gmail.com" class="text-accent hover:underline" data-bind="company_email">aahalitokalatech@gmail.com</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
