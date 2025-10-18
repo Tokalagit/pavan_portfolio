@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K Nandeesh - Software Developer Portfolio</title>
+    <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for professional aesthetic */
+        body {
+            font-family: 'Inter', serif;
+            background-color: #0f172a; /* Dark Navy Blue */
+            color: #c9d1d9; /* Light text */
+        }
+        /* Blue accent color */
+        .text-accent {
+            color: #db8534; /* A vibrant blue accent color */
+        }
+        .btn-primary {
+            background-color: #db7134;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #ad481a;
+        }
+        a:hover{
+            color:rgb(221, 213, 212);
+        }
+        .link1:hover {
+                      color: rgb(216, 19, 19);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    // Define dark theme colors
+                    'background-dark': '#0f172a', /* Dark Navy Blue */
+                    'card-dark': '#161b22',      // Card background color
+                    // Blue accent definitions
+                    'accent-blue': '#3498db', 
+                    'accent-blue-darker': '#2980b9',
+                }
+            }
+        }
+
+        // --- UPDATED MOCK DATA BASED ON USER INPUT ---
+        window.onload = function() {
+            const mockData = {
+                // USER DETAILS
+                full_name: "K Nandeesh",
+                job_title: "Software Developer.", 
+                bio: "I'm K Nandeesh, a dedicated Software Developer at Tokala Technology Pvt. Ltd. I'm passionate about creating efficient, user-centered web applications, moblie application and delivering high-quality software solutions. My work focuses on transforming ideas into functional products using modern technologies. At Tokala Technology Pvt Ltd. I collaborate with a talented team to design, develop, and maintain innovative software that meets client needs while ensuring performance and scalability. I believe in continuous learning, teamwork, and writing clean, maintainable code that makes a real impact.",
+                
+                // CONTACT DETAILS
+                company_email: "Nandeeshtokalatech@gmail.com", // NEW COMPANY EMAIL
+                linkedin_link: "https://www.linkedin.com/in/acharinandeesh24",
+                gitlab_link: "https://gitlab.com/acharinandeesh24",
+                
+                // PROJECTS DATA (Using existing data from previous context)
+                projects: [
+                    { 
+                        title: "CI/CD Pipeline Implementation", 
+                        description: "Designed and implemented a Continuous Integration/Continuous Deployment (CI/CD) Pipeline using Jenkins and GitLab. This involved creating VPCs, subnets, launching instances, and configuring Docker and Jenkins files with webhooks for automatic pipeline triggering.", 
+                        link: "#project-devops-cicd", 
+                        tags: ["DevOps", "Jenkins", "GitLab", "Docker", "AWS/VPC", "Ansible"] 
+                    },
+                    { 
+                        title: "University Web Page (Front-end)", 
+                        description: "Developed the front-end of the university webpage using core web technologies, focusing on responsive design and layout structure.", 
+                        link: "#project-uni-web", 
+                        tags: ["HTML", "CSS", "Front-end Development", "Web Technology"] 
+                    },
+                    { 
+                        title: "OTT Web Page", 
+                        description: "Developed an OTT (Over-The-Top) streaming service webpage using HTML, CSS, and basic JavaScript functionalities to create an engaging media platform interface.", 
+                        link: "#project-ott", 
+                        tags: ["HTML", "CSS", "JavaScript", "Front-end Development"] 
+                    },
+                ],
+                // EDUCATION DATA (UPDATED TO ONLY SHOW B.TECH)
+                education_history: [
+                    { 
+                        degree: "Bachelor of Technology (B.Tech)", 
+                        institution: "JNTUA College Of Engineering, Kalikiri, AP", 
+                        years: "2019 - 2023", 
+                        details: "Computer Science Engineering | CGPA: 7.11" 
+                    },
+                ],
+                // SKILLS DATA (Using existing data from previous context)
+                skills: [
+                    { name: "HTML", emoji: "🏷️" },
+                    { name: "CSS", emoji: "🎨" },
+                    { name: "JavaScript", emoji: "📜" },
+                    { name: "Python", emoji: "🐍" },
+                    { name: "SQL", emoji: "🐘" },
+                    { name: "Jenkins", emoji: "🛠️" },
+                    { name: "Ansible", emoji: "⚙️" },
+                ]
+            };
+
+            // Dynamically populate fields (simulating Django's {{ variable }} output)
+            document.querySelectorAll('[data-bind]').forEach(el => {
+                const key = el.getAttribute('data-bind');
+                if (mockData[key]) {
+                    el.textContent = mockData[key];
+                    if (key.includes('email')) {
+                         el.setAttribute('href', `mailto:${mockData[key]}`);
+                    }
+                }
+            });
+            
+            // Set link destinations
+            document.getElementById('linkedin-link').href = mockData.linkedin_link;
+            document.getElementById('gitlab-link').href = mockData.gitlab_link;
+            
+            // Dynamically render projects
+            const projectsContainer = document.getElementById('projects-grid');
+            projectsContainer.innerHTML = ''; 
+            mockData.projects.forEach(project => {
+                const projectCard = document.createElement('div');
+                projectCard.className = 'bg-card-dark p-6 rounded-xl shadow-2xl hover:shadow-accent-blue/50 transition-all duration-300 transform hover:-translate-y-1 border border-transparent hover:border-accent-blue';
+                
+                const tagsHtml = project.tags.map(tag => `<span class="text-xs font-medium px-2 py-0.5 rounded-full bg-background-dark text-accent border border-accent-blue/30">${tag}</span>`).join('');
+                
+                projectCard.innerHTML = `
+                    <h3 class="text-xl font-bold mb-3 text-white">${project.title}</h3>
+                    <p class="text-gray-400 mb-4">${project.description}</p>
+                    <div class="flex flex-wrap gap-2 mb-4">${tagsHtml}</div>
+                    
+                `;
+                projectsContainer.appendChild(projectCard);
+            });
+
+            // Dynamically render education history
+            const educationContainer = document.getElementById('education-history');
+            educationContainer.innerHTML = ''; 
+            mockData.education_history.forEach((item, index) => {
+                const educationCard = document.createElement('div');
+                const borderColor = index === 0 ? 'border-accent-blue' : 'border-gray-700';
+                educationCard.className = `p-6 bg-card-dark rounded-xl shadow-xl border-l-4 ${borderColor}`;
+                
+                educationCard.innerHTML = `
+                    <div class="flex justify-between items-start mb-2">
+                        <div class="flex flex-col">
+                            <h3 class="text-xl font-bold text-white">${item.degree}</h3>
+                            <p class="text-lg text-gray-300">${item.institution}</p>
+                        </div>
+                        <span class="text-sm text-gray-400 font-medium">${item.years}</span>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-2">
+                        ${item.details}
+                    </p>
+                `;
+                educationContainer.appendChild(educationCard);
+            });
+
+            // Dynamically render skills
+            const skillsContainer = document.getElementById('skills-grid');
+            skillsContainer.innerHTML = '';
+            mockData.skills.forEach(skill => {
+                const skillCard = document.createElement('div');
+                skillCard.className = 'p-4 bg-card-dark rounded-xl shadow-lg border border-gray-700 hover:border-accent-blue transition duration-300 transform hover:scale-105';
+                skillCard.innerHTML = `
+                    <span class="text-4xl block mb-2" role="img" aria-label="${skill.name}">${skill.emoji}</span>
+                    <p class="font-medium text-white">${skill.name}</p>
+                `;
+                skillsContainer.appendChild(skillCard);
+            });
+        };
+    </script>
+</head>
+<body>
+    <!-- Navigation Bar --><header class="sticky top-0 z-50 bg-background-dark/95 backdrop-blur-sm shadow-md">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <div class="text-2xl font-extrabold text-accent">
+                K Nandeesh
+            </div>
+            <!-- Desktop Nav Links --><div class="hidden md:flex space-x-6 text-gray-300">
+                <a href="#home"  class="link1" class="hover:text-accent transition duration-150">Home</a>
+                <a href="#projects"  class="link1" class="hover:text-accent transition duration-150">Projects</a>
+                <a href="#about"  class="link1" class="hover:text-accent transition duration-150">About</a>
+                <a href="#education"  class="link1" class="hover:text-accent transition duration-150">Education</a>
+                <a href="#skills"  class="link1" class="hover:text-accent transition duration-150">Skills</a>
+                <a href="#contact"  class="link1" class="hover:text-accent transition duration-150">Contact</a>
+                </div>
+            </nav>
+    </header>
+
+    <!-- Main Content Area --><main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <!-- 1. Hero Section --><section id="home" class="min-h-[70vh] flex items-center justify-center text-center">
+            <div class="max-w-4xl space-y-6">
+                <p class="text-xl text-accent font-medium uppercase tracking-widest">
+                    Hello, I'm
+                </p>
+                <h1 class="text-6xl sm:text-7xl lg:text-8xl font-black text-white leading-tight whitespace-nowrap">
+                    <span data-bind="full_name">K Nandeesh</span>
+                </h1>
+                <h2 class="text-2xl sm:text-3xl font-light text-gray-400">
+                    <span class="font-bold text-accent" data-bind="job_title">Software Developer.</span>
+                </h2>
+                <div class="pt-8 flex justify-center space-x-4">
+                    <a href="#contact" class="btn-primary text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-accent-blue/40 transition duration-300 transform hover:scale-105">
+                        Get In Touch
+                    </a>
+                   <a href="#projects" class="bg-card-dark border border-gray-700 text-gray-300 font-bold py-3 px-8 rounded-full hover:bg-gray-800 transition duration-300 transform hover:scale-105">
+                        View project
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Divider -->
+        <div class="my-16 border-t border-gray-700"></div>
+
+        <!-- 2. Projects Section --><section id="projects" class="py-16">
+            <h2 class="text-4xl font-extrabold text-white mb-10 text-center">
+                Featured <span class="text-accent">Projects</span>
+            </h2>
+            
+            <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project cards will be generated here by the script -->
+            </div>
+            <div class="text-center mt-12">
+                <a href="#contact" class="bg-gray-700 text-white font-bold py-3 px-8 rounded-full hover:bg-gray-600 transition duration-300">
+                    Discuss a Project
+                </a>
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="my-16 border-t border-gray-700"></div>
+
+        <!-- 3. About Section --><section id="about" class="py-16 grid grid-cols-1 md:grid-cols-3 gap-10 items-center">
+            <div class="md:col-span-1 flex justify-center">
+                <!-- Profile Photo Placeholder -->
+                <img src="nandeesh profile.jpeg" alt="K Nandeesh Profile Photo" class="w-64 h-64 object-cover rounded-full shadow-2xl border-4 border-accent-blue">
+            </div>
+            <div class="md:col-span-2">
+                <h2 class="text-4xl font-extrabold text-white mb-6">
+                    About <span class="text-accent">Me</span>
+                </h2>
+                <p class="text-lg text-gray-400 leading-relaxed mb-4" data-bind="bio">
+                    I'm K Nandeesh, a dedicated Software Developer at Tokala Technology Pvt. Ltd. I'm passionate about creating efficient, user-centered web applications mobile application and delivering high-quality software solutions. My work focuses on transforming ideas into functional products using modern technologies. At Tokala Technology Pvt Ltd. I collaborate with a talented team to design, develop, and maintain innovative software that meets client needs while ensuring performance and scalability. I believe in continuous learning, teamwork, and writing clean, maintainable code that makes a real impact.
+                </p>
+                <!-- Quick Skills from the resume -->
+                <div class="flex flex-wrap gap-4 mt-8">
+                    <span class="bg-card-dark text-white text-sm font-semibold py-2 px-4 rounded-full border border-gray-700">Jenkins</span>
+                    <span class="bg-card-dark text-white text-sm font-semibold py-2 px-4 rounded-full border border-gray-700">Ansible</span>
+                    <span class="bg-card-dark text-white text-sm font-semibold py-2 px-4 rounded-full border border-gray-700">Python</span>
+                    <span class="bg-card-dark text-white text-sm font-semibold py-2 px-4 rounded-full border border-gray-700">HTML/CSS</span>
+                    <span class="bg-card-dark text-white text-sm font-semibold py-2 px-4 rounded-full border border-gray-700">SQL</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="my-16 border-t border-gray-700"></div>
+
+        <!-- 4. Education Section --><section id="education" class="py-16 grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
+            <div class="md:col-span-1 flex justify-center sticky top-20">
+                <!-- Education Photo Placeholder -->
+                <img src="nandeesh edu.jpeg" alt="Education Profile Picture" class="w-64 h-64 object-cover rounded-full shadow-2xl border-4 border-accent-blue">
+            </div>
+            <div class="md:col-span-2">
+                <h2 class="text-4xl font-extrabold text-white mb-10 md:mb-6 text-center md:text-left">
+                    My <span class="text-accent">Education</span> History
+                </h2>
+                <div class="max-w-3xl md:max-w-none mx-auto space-y-8" id="education-history">
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="my-16 border-t border-gray-700"></div>
+
+        <!-- 5. Skills & Tech Stack Section --><section id="skills" class="py-16">
+            <h2 class="text-4xl font-extrabold text-white mb-10 text-center">
+                My <span class="text-accent">Skills</span> & Tech Stack
+            </h2>
+            <div class="max-w-4xl mx-auto">
+                <div id="skills-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-6 text-center">
+                    <!-- Skill cards will be generated here by the script -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="my-16 border-t border-gray-700"></div>
+
+        <!-- 6. Contact Section --><section id="contact" class="py-16">
+            <h2 class="text-4xl font-extrabold text-white mb-10 text-center">
+                Contact <span class="text-accent">Me</span>
+            </h2>
+            <div class="max-w-xl mx-auto bg-card-dark p-8 rounded-xl shadow-2xl border border-gray-700">
+                <p class="text-center text-gray-400 mb-6">
+                   Ready to start a project? Send me a message!
+                </p>
+                <div class="flex flex-col space-y-4 mb-8 text-center">
+                    <a href="mailto:Nandeeshtokalatech@gmail.com" class="text-lg text-accent hover:underline flex items-center justify-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        <span data-bind="company_email">Nandeeshtokalatech@gmail.com</span>
+                    </a>
+                </div>
+                <form action="#" method="POST" class="space-y-4">
+                    <input type="text" name="name" placeholder="Your Name" class="w-full bg-background-dark border border-gray-700 p-3 rounded-lg text-white placeholder-gray-500 focus:ring-accent-blue focus:border-accent-blue" required>
+                    <input type="email" name="email" placeholder="Your Email" class="w-full bg-background-dark border border-gray-700 p-3 rounded-lg text-white placeholder-gray-500 focus:ring-accent-blue focus:border-accent-blue" required>
+                    <textarea name="message" rows="5" placeholder="Your Message" class="w-full bg-background-dark border border-gray-700 p-3 rounded-lg text-white placeholder-gray-500 focus:ring-accent-blue focus:border-accent-blue" required></textarea>
+                    <button type="submit" class="btn-primary w-full text-white font-bold py-3 rounded-lg shadow-lg hover:shadow-accent-blue/40 transition duration-300">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer --><footer class="bg-background-dark border-t border-gray-900 mt-12 py-8">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-gray-500">
+            <!-- Footer Content container to manage layout (copyright left, emails right) --><div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                <!-- Left Section (Copyright and Socials) --><div class="text-center md:text-left">
+                    <p>&copy; 2025 <span data-bind="full_name">K Nandeesh</span> </p>
+                    <div class="flex justify-center md:justify-start space-x-6 mt-4">
+                        <a id="linkedin-link" href="https://www.linkedin.com/in/acharinandeesh24" target="_blank" class="text-gray-400 hover:text-accent-blue transition duration-150">LinkedIn</a>
+                        <a id="gitlab-link" href="https://gitlab.com/acharinandeesh24" target="_blank" class="text-gray-400 hover:text-accent-blue transition duration-150">GitHub</a>
+                    </div>
+                </div>
+                
+                <!-- Right Section (Emails) - Positioned at the bottom right --><div class="text-center md:text-right space-y-1">
+                    <p class="text-white font-semibold">Get in touch:</p>
+                    <p class="text-sm">Email: <a href="mailto:Nandeeshtokalatech@gmail.com" class="text-accent-blue hover:underline" data-bind="company_email">Nandeeshtokalatech@gmail.com</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
