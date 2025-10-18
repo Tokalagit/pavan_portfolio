@@ -1,139 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Django Portfolio | S Theja sree </title>
-    <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Custom styles for professional aesthetic */
-        body {
-            font-family: 'Inter', 'Times New Roman', Times, serif;
-            background-color: #0f172a; /* Dark Navy Blue */
-            color: #c9d1d9; /* Light text */
-        }
-        /* Blue accent color */
-        .text-accent {
-            color: #345bdb; /* A vibrant blue accent color */
-        }
-        .btn-primary {
-            background-color: #347cdb;
-            transition: background-color 0.3s;
-        }
-        .btn-primary:hover {
-            background-color: #2957b9;
-        }
-        a:hover{
-            color:rgb(50, 150, 180);
-        }
-    </style>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    // Define dark theme colors
-                    'background-dark': '#0f172a', /* Dark Navy Blue */
-                    'card-dark': '#161b22',      // Card background color
-                    // Blue accent definitions
-                    'accent-blue': '#3498db', 
-                    'accent-blue-darker': '#2980b9',
-                }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Django Portfolio | Avala Pavan </title>
+  <!-- Load Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 100px; /* ✅ Fix for scroll overlap */
+    }
+    body {
+        font-family: 'Inter', 'Times New Roman', Times, serif;
+        color: #0a67c5;
+        background-image: url("https://www.freepik.com/free-ai-image/thunderstorm-countryside_274025021.htm#fromView=keyword&page=1&position=0&uuid=235dae07-58e2-4e5d-9c57-3573f7784dbe&query=4k+wallpaper");
+        background-size: cover;
+        background-position: center;
+        background-color: #0e0d0d;
+    }
+    .text-accent { color: #db3934; }
+    .btn-primary {
+        background-color: #d44e3c;
+        transition: background-color 0.3s;
+    }
+    .btn-primary:hover { background-color: #b92929; }
+    a:hover { color: rgb(216, 181, 175); }
+    .carousel-btn {
+        @apply p-3 rounded-full bg-accent-blue/20 text-accent hover:bg-accent-blue hover:text-white transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+    .slide-content img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+  </style>
+  <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                'background-dark': '#0f172a',
+                'card-dark': '#161b22',
+                'accent-blue': '#3498db',
+                'accent-blue-darker': '#2980b9',
             }
         }
+    }
 
-        // Mock data to simulate Django rendering in the browser preview
-        window.onload = function() {
-            const mockData = {
-                // USER DETAILS
-                full_name: "S Theja sree",
-                job_title: "Software Developer", 
-                bio: "I'm S theja sree, a dedicated Software Developer at Tokala Technology Pvt. Ltd. I'm passionate about creating efficient, user-centered web applications and delivering high-quality software solutions. My work focuses on transforming ideas into functional products using modern technologies. At Tokala Technology Pvt. Ltd., I collaborate with a talented team to design, develop, and maintain innovative software that meets client needs while ensuring performance and scalability. I believe in continuous learning, teamwork, and writing clean, maintainable code that makes a real impact.",
-                
-                // CONTACT DETAILS
-                personal_email: "acharinandeesh24@gmail.com",
-                company_email: "thejasreetokala@gmail.com",
-                projects: [
-                    { 
-                        title: "Student Marks Management System (SMMS)", 
-                        description: "Developed a web-based application for managing and tracking student marks, providing efficient and user-friendly functionality.", 
-                        link: "#project-smms", 
-                        tags: ["Django", "Python", "HTML/CSS/JS", "Database Integration"] 
-                    },
-                    { 
-                        title: "Personal Portfolio Website", 
-                        description: "Designed and developed a fully responsive personal portfolio website to highlight skills, achievements, and technical capabilities, implementing modern web design practices.", 
-                        link: "#project-portfolio", 
-                        tags: ["HTML", "CSS", "JavaScript", "Bootstrap", "Responsive Design"] 
-                    },
-                ],
-                // EDUCATION DATA
-                education_history: [
-                    { 
-                        degree: "Master of Computer Applications (MCA)", 
-                        institution: "Mother Theresa Institute Of Computer Application", 
-                        years: "Aug 2023 - May 2025", 
-                        details: "Pursuing MCA with a current percentage of 80%." 
-                    },
-                    { 
-                        degree: "Bachelor of Science (BSc)", 
-                        institution: "Mother Theresa Degree College, Palamaner", 
-                        years: "Jun 2020 - Apr 2023", 
-                        details: "Completed BSc with 92%." 
-                    },
-                ],
-                // SKILLS DATA
-                skills: [
-                    { name: "Python", emoji: "🐍" },
-                    { name: "Django", emoji: "💙" },
-                    { name: "HTML", emoji: "🏷️" },
-                    { name: "CSS", emoji: "🎨" },
-                    { name: "JavaScript", emoji: "📜" },
-                    { name: "SQL", emoji: "🐘" },
-                    { name: "Oracle SQL", emoji: "💾" },
-                    { name: "Bootstrap", emoji: "🅱️" },
-                    { name: ".Net Full Stack", emoji: "🌐" },
-                    { name: "Flutter", emoji: "🐦" },
-                ]
-            };
+    let currentSlideIndex = 0;
+    const totalSlides = 4;
+    let autoSlideInterval = null;
+    const SLIDE_DURATION_MS = 4000;
 
-            // Dynamically populate fields (simulating Django's {{ variable }} output)
-            document.querySelectorAll('[data-bind]').forEach(el => {
-                const key = el.getAttribute('data-bind');
-                if (mockData[key]) {
-                    el.textContent = mockData[key];
-                    if (key === 'personal_email' || key === 'company_email') {
-                         el.setAttribute('href', `mailto:${mockData[key]}`);
-                    }
-                }
-            });
+    function startAutoSlide() {
+        stopAutoSlide();
+        autoSlideInterval = setInterval(() => {
+            currentSlideIndex++;
+            if (currentSlideIndex >= totalSlides) { currentSlideIndex = 0; }
+            updateCarousel();
+        }, SLIDE_DURATION_MS);
+    }
 
-            // Dynamically render projects
-            const projectsContainer = document.getElementById('projects-grid');
-            projectsContainer.innerHTML = ''; 
-            mockData.projects.forEach(project => {
-                const projectCard = document.createElement('div');
-                projectCard.className = 'bg-card-dark p-6 rounded-xl shadow-2xl hover:shadow-accent-blue/50 transition-all duration-300 transform hover:-translate-y-1 border border-transparent hover:border-accent-blue';
-                
-                const tagsHtml = project.tags.map(tag => `<span class="text-xs font-medium px-2 py-0.5 rounded-full bg-background-dark text-accent border border-accent-blue/30">${tag}</span>`).join('');
-                
-                projectCard.innerHTML = `
-                    <h3 class="text-xl font-bold mb-3 text-white">${project.title}</h3>
-                    <p class="text-gray-400 mb-4">${project.description}</p>
-                    <div class="flex flex-wrap gap-2 mb-4">${tagsHtml}</div>
-                    
-                `;
-                projectsContainer.appendChild(projectCard);
-            });
+    function stopAutoSlide() {
+        if (autoSlideInterval) {
+            clearInterval(autoSlideInterval);
+            autoSlideInterval = null;
+        }
+    }
 
-            // Dynamically render education history
-            const educationContainer = document.getElementById('education-history');
-            educationContainer.innerHTML = ''; 
-            mockData.education_history.forEach((item, index) => {
-                const educationCard = document.createElement('div');
-                const borderColor = index === 0 ? 'border-accent-blue' : 'border-gray-700';
-                educationCard.className = `p-6 bg-card-dark rounded-xl shadow-xl border-l-4 ${borderColor}`;
-                
-                educationCard.innerHTML = `
+    function updateCarousel() {
+        const carousel = document.getElementById('image-carousel');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        if (!carousel || !prevBtn || !nextBtn) return;
+        const moveStep = 100 / totalSlides;
+        const translateValue = -currentSlideIndex * moveStep;
+        carousel.style.transform = `translateY(${translateValue}%)`;
+        prevBtn.disabled = currentSlideIndex === 0;
+        nextBtn.disabled = currentSlideIndex === totalSlides - 1;
+    }
+
+    function nextSlide() { stopAutoSlide(); if (currentSlideIndex < totalSlides - 1) { currentSlideIndex++; updateCarousel(); } }
+    function prevSlide() { stopAutoSlide(); if (currentSlideIndex > 0) { currentSlideIndex--; updateCarousel(); } }
+
+    window.onload = function() {
+        const mockData = {
+            full_name: "Avala Pavan",
+            job_title: "DEVELOPER",
+            bio: "As the Chief Executive Officer (CEO) of Tokala Technology Pvt. Ltd., I lead with a clear vision to drive innovation, growth, and excellence in the IT industry. With a strong background in technology and business strategy, I am dedicated to building a company that delivers high-quality digital solutions while empowering both clients and employees to reach their full potential.\n\nUnder my leadership, Tokala Technology has been focused on developing cutting-edge software solutions, web applications, and IT services that meet the ever-changing demands of the digital world. I believe in creating a work culture that values creativity, collaboration, and continuous learning, ensuring that our team remains motivated and passionate about delivering outstanding results.\n\nMy role goes beyond management — it’s about inspiring teams, building meaningful partnerships, and transforming ideas into impactful solutions. I strive to position Tokala Technology as a trusted name in the tech ecosystem, known for integrity, innovation, and customer satisfaction.\n\nDriven by a vision of technological empowerment, I continue to lead with commitment, adaptability, and a deep passion for shaping the future of digital transformation.",
+            personal_email: "pavanavala5@gmail.com",
+            company_email: "avalapavan0@gmail.com",
+            projects: [
+                { title: "Order Management Expertise", description: "Expertise in reviewing, processing, and managing orders from initiation to completion, ensuring accurate and timely execution of the order lifecycle.", link: "#achievement-om", tags: ["Order Lifecycle", "Processing", "Expertise"] },
+                { title: "Workflow Optimization", description: "Proven ability to streamline order management processes for improved efficiency, including identifying and implementing process improvements to enhance accuracy.", link: "#achievement-wo", tags: ["Process Improvement", "Efficiency", "Workflow Design"] },
+                { title: "Compliance Assurance", description: "Ensures strict adherence to organizational policies, monitored Service Level Agreements (SLA), and committed to quality standards.", link: "#achievement-ca", tags: ["Compliance", "SLA Management", "Policy"] },
+                { title: "Transaction Validation", description: "Skilled in verifying and processing order-related financial transactions to maintain accuracy and transactional integrity.", link: "#achievement-tv", tags: ["Financials", "Transaction Integrity", "Verification"] },
+                { title: "Performance Tracking & Reporting", description: "Proficient in creating and maintaining detailed reports to monitor operational performance metrics and highlight areas for improvement.", link: "#achievement-pt", tags: ["Reporting", "Performance Metrics", "Data Analysis"] },
+                { title: "Team Collaboration & Support", description: "Effective at working with internal teams to ensure smooth operations and training new team members on order management tools and workflows.", link: "#achievement-tc", tags: ["Teamwork", "Internal Relations", "Training"] },
+                { title: "Escalation & Problem Solving", description: "Strong ability to act as the point of contact to identify and resolve escalated order-related issues promptly and provide effective solutions.", link: "#achievement-ps", tags: ["Issue Resolution", "Customer Focus", "Problem-Solving"] },
+            ],
+            education_history: [
+                { degree: "Bachelor of Technology (B.Tech) in Computer Science And Engineering", institution: "Bharath Institute of Higher Education And Research", years: "Completed 2022", details: "Graduated with 79% in Computer Science And Engineering." },
+            ],
+            skills: [
+                { name: "Python", emoji: "🐍" },
+                { name: "Django", emoji: "💙" },
+                { name: "HTML", emoji: "🏷️" },
+                { name: "CSS", emoji: "🎨" },
+                { name: "JAVASCRIPT", emoji: "📜" },
+                { name: "SQL", emoji: "🐘" },
+                { name: "C", emoji: "🇨" }
+            ]
+        };
+
+        document.querySelectorAll('[data-bind]').forEach(el => {
+            const key = el.getAttribute('data-bind');
+            if (mockData[key]) {
+                el.textContent = mockData[key];
+                if (key === 'personal_email' || key === 'company_email') { el.setAttribute('href', `mailto:${mockData[key]}`); }
+            }
+        });
+
+        const projectsContainer = document.getElementById('projects-grid');
+        projectsContainer.innerHTML = '';
+        mockData.projects.forEach(project => {
+            const projectCard = document.createElement('div');
+            projectCard.className = 'bg-card-dark p-6 rounded-xl shadow-2xl hover:shadow-accent-blue/50 transition-all duration-300 transform hover:-translate-y-1 border border-transparent hover:border-accent-blue';
+            const tagsHtml = project.tags.map(tag => `<span class="text-xs font-medium px-2 py-0.5 rounded-full bg-background-dark text-accent border border-accent-blue/30">${tag}</span>`).join('');
+            projectCard.innerHTML = `
+                <h3 class="text-xl font-bold mb-3 text-white">${project.title}</h3>
+                <p class="text-gray-400 mb-4">${project.description}</p>
+                <div class="flex flex-wrap gap-2 mb-4">${tagsHtml}</div>
+            `;
+            projectsContainer.appendChild(projectCard);
+        });
+
+        const educationContainer = document.getElementById('education-history');
+        educationContainer.innerHTML = '';
+        mockData.education_history.forEach((item, index) => {
+            const educationCard = document.createElement('div');
+            const borderColor = index === 0 ? 'border-accent-blue' : 'border-gray-700';
+            educationCard.className = `flex flex-col md:flex-row items-center gap-6 p-6 bg-card-dark rounded-xl shadow-xl border-l-4 ${borderColor}`;
+            educationCard.innerHTML = `
+                <div class="flex-shrink-0 w-40 h-40 rounded-full border-4 border-gray-500 overflow-hidden">
+                    <img src="pavan edu.jpeg" alt="Education Image" class="w-full h-full object-cover">
+                </div>
+                <div class="flex-1">
                     <div class="flex justify-between items-start mb-2">
                         <div class="flex flex-col">
                             <h3 class="text-xl font-bold text-white">${item.degree}</h3>
@@ -141,186 +153,177 @@
                         </div>
                         <span class="text-sm text-gray-400 font-medium">${item.years}</span>
                     </div>
-                    <p class="text-sm text-gray-500 mt-2">
-                        ${item.details}
-                    </p>
-                `;
-                educationContainer.appendChild(educationCard);
-            });
+                    <p class="text-sm text-gray-500 mt-2">${item.details}</p>
+                </div>
+            `;
+            educationContainer.appendChild(educationCard);
+        });
 
-            // Dynamically render skills
-            const skillsContainer = document.getElementById('skills-grid');
-            skillsContainer.innerHTML = '';
-            mockData.skills.forEach(skill => {
-                const skillCard = document.createElement('div');
-                skillCard.className = 'p-4 bg-card-dark rounded-xl shadow-lg border border-gray-700 hover:border-accent-blue transition duration-300 transform hover:scale-105';
-                skillCard.innerHTML = `
-                    <span class="text-4xl block mb-2" role="img" aria-label="${skill.name}">${skill.emoji}</span>
-                    <p class="font-medium text-white">${skill.name}</p>
-                `;
-                skillsContainer.appendChild(skillCard);
-            });
-        };
-    </script>
+        const skillsContainer = document.getElementById('skills-grid');
+        skillsContainer.innerHTML = '';
+        mockData.skills.forEach(skill => {
+            const skillCard = document.createElement('div');
+            skillCard.className = 'p-4 bg-card-dark rounded-xl shadow-lg border border-gray-700 hover:border-accent-blue transition duration-300 transform hover:scale-105';
+            skillCard.innerHTML = `
+                <span class="text-4xl block mb-2" role="img" aria-label="${skill.name}">${skill.emoji}</span>
+                <p class="font-medium text-white">${skill.name}</p>
+            `;
+            skillsContainer.appendChild(skillCard);
+        });
+
+        document.getElementById('prev-btn').addEventListener('click', prevSlide);
+        document.getElementById('next-btn').addEventListener('click', nextSlide);
+
+        updateCarousel();
+        startAutoSlide();
+    };
+  </script>
 </head>
 <body>
-    <!-- Navigation Bar --><header class="sticky top-0 z-50 bg-background-dark/95 backdrop-blur-sm shadow-md">
-        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <div class="text-2xl font-extrabold text-accent">
-               Theja sree 
-            </div>
-            <!-- Desktop Nav Links --><div class="hidden md:flex space-x-6 text-gray-300">
-                <a href="#home" class="hover:text-accent transition duration-150">Home</a>
-                <a href="#projects" class="hover:text-accent transition duration-150">Projects</a>
-                <a href="#about" class="hover:text-accent transition duration-150">About</a>
-                <a href="#education" class="hover:text-accent transition duration-150">Education</a>
-                <a href="#skills" class="hover:text-accent transition duration-150">Skills</a>
-                <a href="#contact" class="hover:text-accent transition duration-150">Contact</a>
-                </div>
-            </nav>
-    </header>
+<header class="sticky top-0 z-50 bg-background-dark/95 backdrop-blur-sm shadow-md">
+  <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+    <div class="text-2xl font-extrabold text-accent">Avala Pavan</div>
+    <div class="hidden md:flex space-x-6">
+      <a href="#home" class="nav-link transition duration-150">Home</a>
+      <a href="#projects" class="nav-link transition duration-150">Achievements</a>
+      <a href="#about" class="nav-link transition duration-150">About</a>
+      <a href="#education" class="nav-link transition duration-150">Education</a>
+      <a href="#environment" class="nav-link transition duration-150">Environment</a>
+      <a href="#skills" class="nav-link transition duration-150">Skills</a>
+      <a href="#contact" class="nav-link transition duration-150">Contact</a>
+    </div>
+  </nav>
+</header>
 
-    <!-- Main Content Area --><main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<main class="container mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
 
-        <!-- 1. Hero Section --><section id="home" class="min-h-[70vh] flex items-center justify-center text-center">
-            <div class="max-w-4xl space-y-6">
-                <p class="text-xl text-accent font-medium uppercase tracking-widest">
-                    Hello, I'm
-                </p>
-                <h1 class="text-6xl sm:text-7xl lg:text-8xl font-black text-white leading-tight whitespace-nowrap">
-                    <span data-bind="full_name">S Theja sree</span>
-                </h1>
-                <h2 class="text-2xl sm:text-3xl font-light text-gray-400">
-                    A <span class="font-bold text-accent" data-bind="job_title">Software Developer</span>
-                </h2>
-                <div class="pt-8 flex justify-center space-x-4">
-                    <a href="#contact" class="btn-primary text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-accent-blue/40 transition duration-300 transform hover:scale-105">
-                        Get In Touch
-                    </a>
-                    <a href="c:\Users\EVM\Downloads\Thejasree_resume.pdf"  class="bg-card-dark border border-gray-700 text-gray-300 font-bold py-3 px-8 rounded-full hover:bg-gray-800 transition duration-300 transform hover:scale-105">
-                        Download CV
-                    </a>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Divider -->
-        <div class="my-16 border-t border-gray-700"></div>
+  <!-- Hero Section -->
+  <section id="home" class="content-section min-h-[70vh] flex items-center justify-center text-center">
+    <div class="max-w-4xl space-y-6">
+      <p class="text-xl text-accent font-medium uppercase tracking-widest">Hello, I'm</p>
+      <h1 class="text-6xl sm:text-7xl lg:text-8xl font-black text-white leading-tight whitespace-nowrap">
+        <span data-bind="full_name">Avala Pavan</span>
+      </h1>
+      <h2 class="text-2xl sm:text-3xl font-light text-gray-400">
+        A <span class="font-bold text-accent" data-bind="job_title">DEVELOPER</span>
+      </h2>
+      <div class="pt-8 flex justify-center space-x-4">
+        <a href="#contact" class="btn-primary text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-accent-blue/40 transition duration-300 transform hover:scale-105">Get In Touch</a>
+        <a href="pavan resume.pdf" target="_blank" class="bg-card-dark border border-gray-700 text-gray-300 font-bold py-3 px-8 rounded-full hover:bg-gray-800 transition duration-300 transform hover:scale-105">View Resume</a>
+      </div>
+    </div>
+  </section>
 
-        <!-- 2. Projects Section --><section id="projects" class="py-16">
-            <h2 class="text-4xl font-extrabold text-white mb-10 text-center">
-                Featured <span class="text-accent">Projects</span>
-            </h2>
-            
-            <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Project cards will be generated here by the script -->
-            </div>
-            <div class="text-center mt-12">
-                <a href="#" class="bg-gray-700 text-white font-bold py-3 px-8 rounded-full hover:bg-gray-600 transition duration-300">
-                    Discuss a Project
-                </a>
-            </div>
-        </section>
+  <!-- Projects Section -->
+  <section id="projects" class="content-section min-h-[70vh] py-12">
+    <h2 class="text-4xl font-bold text-white mb-8">Achievements</h2>
+    <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- JS fills projects -->
+    </div>
+  </section>
 
-        <!-- Divider -->
-        <div class="my-16 border-t border-gray-700"></div>
+  <!-- About Section -->
+  <section id="about" class="content-section min-h-[70vh] py-12">
+    <h2 class="text-4xl font-bold text-white mb-12 text-center">About <span class="text-accent">Me</span></h2>
+    <div class="flex flex-col md:flex-row items-center md:items-start gap-12 max-w-6xl mx-auto">
 
-        <!-- 3. About Section --><section id="about" class="py-16 grid grid-cols-1 md:grid-cols-3 gap-10 items-center">
-            <div class="md:col-span-1 flex justify-center">
-                <!-- UPDATED: Use the uploaded graduation photo -->
-                <img src="teja profile pic.jpeg" alt="S Theja sree Profile Photo" class="w-64 h-64 object-cover rounded-full shadow-2xl border-4 border-accent-blue">
-            </div>
-            <div class="md:col-span-2">
-                <h2 class="text-4xl font-extrabold text-white mb-6">
-                    About <span class="text-accent">Me</span>
-                </h2>
-                <p class="text-lg text-gray-400 leading-relaxed mb-4" data-bind="bio">
-                    I'm S Theja sree, a dedicated Software Developer at Tokala Technology Pvt. Ltd. I'm passionate about creating efficient, user-centered web applications and delivering high-quality software solutions. My work focuses on transforming ideas into functional products using modern technologies. At Tokala Technology Pvt. Ltd., I collaborate with a talented team to design, develop, and maintain innovative software that meets client needs while ensuring performance and scalability. I believe in continuous learning, teamwork, and writing clean, maintainable code that makes a real impact.
-                </p>
-                <div class="flex flex-wrap gap-4 mt-8">
-                    <span class="bg-card-dark text-white text-sm font-semibold py-2 px-4 rounded-full border border-gray-700">Python</span>
-                    <span class="bg-card-dark text-white text-sm font-semibold py-2 px-4 rounded-full border border-gray-700">Django</span>
-                    <span class="bg-card-dark text-white text-sm font-semibold py-2 px-4 rounded-full border border-gray-700">JavaScript</span>
-                    <span class="bg-card-dark text-white text-sm font-semibold py-2 px-4 rounded-full border border-gray-700">Oracle SQL</span>
-                    <span class="bg-card-dark text-white text-sm font-semibold py-2 px-4 rounded-full border border-gray-700">Flutter</span>
-                </div>
-            </div>
-        </section>
+      <!-- Profile Image -->
+      <div class="flex-shrink-0 w-56 h-56 rounded-full border-4 border-gray-500 overflow-hidden">
+        <img src="pavan%20profile.jpeg" alt="Avala Pavan" class="w-full h-full object-cover">
+      </div>
 
-        <!-- Divider -->
-        <div class="my-16 border-t border-gray-700"></div>
+      <!-- Bio and Skills -->
+      <div class="flex-1 space-y-6">
+        <p class="text-gray-300 leading-relaxed whitespace-pre-line" data-bind="bio"></p>
 
-        <!-- 4. Education Section --><section id="education" class="py-16 grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
-            <div class="md:col-span-1 flex justify-center sticky top-20">
-                <!-- UPDATED: Use the uploaded graduation photo instead of the placeholder -->
-                <img src="teju edu.jpeg" alt="Education Profile Picture - Graduation" class="w-64 h-64 object-cover rounded-full shadow-2xl border-4 border-accent-blue">
-            </div>
-            <div class="md:col-span-2">
-                <h2 class="text-4xl font-extrabold text-white mb-10 md:mb-6 text-center md:text-left">
-                    My <span class="text-accent">Education</span> History
-                </h2>
-                <div class="max-w-3xl md:max-w-none mx-auto space-y-8" id="education-history">
-                </div>
-            </div>
-        </section>
-
-        <!-- Divider -->
-        <div class="my-16 border-t border-gray-700"></div>
-
-        <!-- 5. Skills & Tech Stack Section --><section id="skills" class="py-16">
-            <h2 class="text-4xl font-extrabold text-white mb-10 text-center">
-                My <span class="text-accent">Skills</span> & Tech Stack
-            </h2>
-            <div class="max-w-4xl mx-auto">
-                <div id="skills-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 text-center">
-                    <!-- Skill cards will be generated here by the script -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Divider -->
-        <div class="my-16 border-t border-gray-700"></div>
-
-        <!-- 6. Contact Section --><section id="contact" class="py-16">
-            <h2 class="text-4xl font-extrabold text-white mb-10 text-center">
-                Contact <span class="text-accent">Me</span>
-            </h2>
-            <div class="max-w-xl mx-auto bg-card-dark p-8 rounded-xl shadow-2xl border border-gray-700">
-                <p class="text-center text-gray-400 mb-6">
-                    Ready to start a project? Send me a message!
-                </p>
-                <form action="#" method="POST" class="space-y-4">
-                    <input type="text" name="name" placeholder="Your Name" class="w-full bg-background-dark border border-gray-700 p-3 rounded-lg text-white placeholder-gray-500 focus:ring-accent-blue focus:border-accent-blue" required>
-                    <input type="email" name="email" placeholder="Your Email" class="w-full bg-background-dark border border-gray-700 p-3 rounded-lg text-white placeholder-gray-500 focus:ring-accent-blue focus:border-accent-blue" required>
-                    <textarea name="message" rows="5" placeholder="Your Message" class="w-full bg-background-dark border border-gray-700 p-3 rounded-lg text-white placeholder-gray-500 focus:ring-accent-blue focus:border-accent-blue" required></textarea>
-                    <button type="submit" class="btn-primary w-full text-white font-bold py-3 rounded-lg shadow-lg hover:shadow-accent-blue/40 transition duration-300">
-                        Send Message
-                    </button>
-                </form>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Footer --><footer class="bg-background-dark border-t border-gray-900 mt-12 py-8">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-gray-500">
-            <!-- Footer Content container to manage layout (copyright left, emails right) --><div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-                <!-- Left Section (Copyright and Socials) --><div class="text-center md:text-left">
-                    <p>&copy; 2024 <span data-bind="full_name">S Theja sree</span> </p>
-                    <div class="flex justify-center md:justify-start space-x-6 mt-4">
-                        <a href="https://www.linkedin.com/in/sakepuram-theja-sree-004658275" target="_blank" class="text-gray-400 hover:text-accent-blue transition duration-150">LinkedIn</a>
-                        <a href="https://github.com/T-h-e-j-a" class="text-gray-400 hover:text-accent-blue transition duration-150">GitHub</a>
-                        
-                    </div>
-                </div>
-                
-                <!-- Right Section (Emails) - Positioned at the bottom right --><div class="text-center md:text-right space-y-1">
-                    <p class="text-white font-semibold">Get in touch:</p>
-                    <p class="text-sm">Personal: <a href="mailto:{{ personal_email }}" class="text-accent-blue hover:underline" data-bind="personal_email">sakepuramthejasree@gmail.com</a></p>
-                    <p class="text-sm">Work: <a href="mailto:{{ company_email }}" class="text-accent-blue hover:underline" data-bind="company_email">thejasreetokala@gmail.com</a></p>
-                </div>
-            </div>
+        <!-- Skill Tags -->
+        <div class="flex flex-wrap gap-3 mt-4">
+          <span class="px-4 py-2 border border-gray-600 rounded-full text-sm text-white hover:bg-accent hover:border-accent transition duration-300">Order Management</span>
+          <span class="px-4 py-2 border border-gray-600 rounded-full text-sm text-white hover:bg-accent hover:border-accent transition duration-300">Analytical Skills</span>
+          <span class="px-4 py-2 border border-gray-600 rounded-full text-sm text-white hover:bg-accent hover:border-accent transition duration-300">Process Improvement</span>
+          <span class="px-4 py-2 border border-gray-600 rounded-full text-sm text-white hover:bg-accent hover:border-accent transition duration-300">Compliance</span>
+          <span class="px-4 py-2 border border-gray-600 rounded-full text-sm text-white hover:bg-accent hover:border-accent transition duration-300">Reporting</span>
         </div>
-    </footer>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education Section -->
+  <section id="education" class="content-section min-h-[70vh] py-12">
+    <h2 class="text-4xl font-bold text-white mb-8">Education</h2>
+    <div id="education-history" class="space-y-6">
+      <!-- JS fills education -->
+    </div>
+  </section>
+
+  <!-- Environment Section -->
+  <section id="environment" class="content-section min-h-[70vh] py-12">
+    <h2 class="text-4xl font-bold text-white mb-8">Environment</h2>
+    <div class="relative w-full h-96 overflow-hidden rounded-xl border border-gray-700">
+      <div id="image-carousel" class="absolute top-0 left-0 w-full h-full transition-transform duration-1000">
+        <div class="slide-content h-full flex flex-col justify-center items-center">
+          <img src="pavan.pic1.jpeg" alt="Slide 1">
+        </div>
+        <div class="slide-content h-full flex flex-col justify-center items-center">
+          <img src="pavan.pic2.jpeg" alt="Slide 2">
+        </div>
+        <div class="slide-content h-full flex flex-col justify-center items-center">
+          <img src="pavan.teampic.jpeg" alt="Slide 3">
+        </div>
+        <div class="slide-content h-full flex flex-col justify-center items-center">
+          <img src="pavan.pic3.jpeg" alt="Slide 4">
+        </div>
+      </div>
+      <button id="prev-btn" class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-gray-800/70 text-white p-3 rounded-full">‹</button>
+      <button id="next-btn" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gray-800/70 text-white p-3 rounded-full">›</button>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="content-section min-h-[70vh] py-12">
+    <h2 class="text-4xl font-bold text-white mb-8">Skills</h2>
+    <div id="skills-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+      <!-- JS fills skills -->
+    </div>
+  </section>
+
+<!-- Contact Section -->
+    <section id="contact" class="content-section min-h-[60vh] py-12">
+      <h2 class="text-4xl font-bold text-white mb-8">Contact</h2>
+      <p class="text-gray-300 mb-4">Personal Email: <a data-bind="personal_email" href="#">pavanavala5@gmail.com</a></p>
+      <p class="text-gray-300 mb-8">Company Email: <a data-bind="company_email" href="#">avalapavan0@gmail.com</a></p>
+
+      <!-- Contact Form -->
+      <form class="max-w-xl mx-auto bg-card-dark p-8 rounded-xl shadow-xl border border-gray-700">
+        <div class="mb-6">
+          <label for="name" class="block text-gray-300 font-semibold mb-2">Your Name</label>
+          <input type="text" id="name" name="name" placeholder="Enter your full name"
+            class="w-full px-4 py-3 rounded-lg bg-background-dark border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent">
+        </div>
+
+        <div class="mb-6">
+          <label for="email" class="block text-gray-300 font-semibold mb-2">Your Email</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email"
+            class="w-full px-4 py-3 rounded-lg bg-background-dark border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent">
+        </div>
+
+        <div class="mb-6">
+          <label for="message" class="block text-gray-300 font-semibold mb-2">Message</label>
+          <textarea id="message" name="message" rows="5" placeholder="Type your message here..."
+            class="w-full px-4 py-3 rounded-lg bg-background-dark border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"></textarea>
+        </div>
+
+        <button type="submit"
+          class="w-full bg-accent text-white font-semibold py-3 rounded-lg hover:bg-red-600 transition duration-300">
+          Send Message
+        </button>
+      </form>
+    </section>
+
+  </main>
+
+<footer class="bg-background-dark py-8 text-center text-gray-500 border-t border-gray-800">
+  <p>&copy; 2025 Avala Pavan. All rights reserved.</p>
+</footer>
 </body>
 </html>
